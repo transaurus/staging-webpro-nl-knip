@@ -1,0 +1,9 @@
+/coverage
+/dist
+/tmp
+/node_modules
+!/fixtures/**
+/fixtures/**/.DS_Store
+.cache
+bin/knip
+bin/knip-bun

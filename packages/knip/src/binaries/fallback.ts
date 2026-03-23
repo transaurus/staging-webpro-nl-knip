@@ -1,0 +1,25 @@
+import parseArgs from 'minimist';
+import type { BinaryResolver } from '../types/config.ts';
+import { compact } from '../util/array.ts';
+import { toBinary, toDeferResolve, toEntry } from '../util/input.ts';
+import { isValidBinary } from '../util/modules.ts';
+
+// Generic fallbacks for basic handling of binaries that don't have a plugin nor a custom resolver
+
+// Binaries that have a new script behind the double-dash/end-of-command
+const endOfCommandBinaries = ['dotenvx', 'env-cmd', 'op'];
+
+// Binaries with entry at first positional arg
+const positionals = new Set(['babel-node', 'esbuild', 'execa', 'jiti', 'oxnode', 'vite-node', 'zx']);
+
+// Binaries where each positional arg is a separate script
+const positionalBinaries = new Set(['concurrently']);
+
+export const resolve: BinaryResolver = (binary, args, { fromArgs }) => {
+  const parsed = parseArgs(args, { boolean: ['quiet', 'verbose'], '--': endOfCommandBinaries.includes(binary) });
+  const bin = binary.startsWith('.') ? toEntry(binary) : isValidBinary(binary) ? toBinary(binary) : undefined;
+  const pos = positionals.has(binary) ? [toDeferResolve(parsed._[0])] : [];
+  const newCommand = parsed['--'] && parsed['--'].length > 0 ? fromArgs(parsed['--']) : [];
+  const commands = positionalBinaries.has(binary) ? parsed._.flatMap(cmd => fromArgs([cmd])) : [];
+  return compact([bin, ...pos, ...newCommand, ...commands]);
+};

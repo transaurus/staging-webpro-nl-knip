@@ -1,0 +1,19 @@
+import type { Plugin } from '../../types/config.ts';
+
+// https://typestrong.org/ts-node/docs/options
+
+const title = 'ts-node';
+
+const args = {
+  positional: true,
+  nodeImportArgs: true,
+  boolean: ['transpileOnly', 'compilerHost', 'ignoreDiagnostics', 'swc', 'preferTsExts'],
+  alias: { transpileOnly: ['T'], compilerHost: ['H'], ignoreDiagnostics: ['D'] },
+};
+
+const plugin: Plugin = {
+  title,
+  args,
+};
+
+export default plugin;

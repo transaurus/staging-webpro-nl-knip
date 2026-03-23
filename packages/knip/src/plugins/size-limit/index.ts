@@ -1,0 +1,37 @@
+import type { IsPluginEnabled, Plugin, Resolve } from '../../types/config.ts';
+import { toDependency } from '../../util/input.ts';
+import { hasDependency } from '../../util/plugin.ts';
+import { toLilconfig } from '../../util/plugin-config.ts';
+
+// https://github.com/ai/size-limit
+// Uses lilconfig but with custom searchPlaces
+// https://github.com/ai/size-limit/blob/main/packages/size-limit/get-config.js
+
+const title = 'size-limit';
+
+const enablers = ['size-limit'];
+
+const isEnabled: IsPluginEnabled = ({ dependencies }) => hasDependency(dependencies, enablers);
+
+const entry = [...toLilconfig('size-limit', { configDir: false, additionalExtensions: ['mts', 'cts'], rcSuffix: '' })];
+
+const resolve: Resolve = options => {
+  const allDeps = [
+    ...Object.keys(options.manifest.dependencies || {}),
+    ...Object.keys(options.manifest.devDependencies || {}),
+  ];
+
+  const sizeLimitDeps = allDeps.filter(dep => dep.startsWith('@size-limit/'));
+
+  return sizeLimitDeps.map(dep => toDependency(dep));
+};
+
+const plugin: Plugin = {
+  title,
+  enablers,
+  isEnabled,
+  entry,
+  resolve,
+};
+
+export default plugin;

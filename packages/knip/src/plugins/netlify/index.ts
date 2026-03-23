@@ -1,0 +1,48 @@
+import type { IsPluginEnabled, Plugin, ResolveConfig } from '../../types/config.ts';
+import { toDependency, toProductionEntry } from '../../util/input.ts';
+import { join } from '../../util/path.ts';
+import { hasDependency } from '../../util/plugin.ts';
+import { extractFunctionsConfigProperty } from './helpers.ts';
+import type { NetlifyConfig } from './types.ts';
+
+// https://docs.netlify.com
+// https://docs.netlify.com/functions/get-started/
+
+const title = 'Netlify';
+
+const enablers = [/^@netlify\/plugin-/, 'netlify-cli', '@netlify/functions'];
+
+const isEnabled: IsPluginEnabled = ({ dependencies }) => hasDependency(dependencies, enablers);
+
+const config = ['netlify.toml'];
+
+const NETLIFY_FUNCTIONS_DIR = 'netlify/functions';
+const NETLIFY_FUNCTIONS_EXTS = 'js,mjs,cjs,ts,mts,cts';
+
+const production = [`${NETLIFY_FUNCTIONS_DIR}/**/*.{${NETLIFY_FUNCTIONS_EXTS}}`];
+
+const resolveConfig: ResolveConfig<NetlifyConfig> = async localConfig => {
+  return [
+    ...extractFunctionsConfigProperty(localConfig.functions || {}, 'included_files'),
+    join(localConfig.functions?.directory ?? NETLIFY_FUNCTIONS_DIR, `**/*.{${NETLIFY_FUNCTIONS_EXTS}}`),
+  ]
+    .filter(file => !file.startsWith('!'))
+    .map(id => toProductionEntry(id))
+    .concat([
+      ...(localConfig?.plugins?.map(plugin => plugin.package) ?? []).map(id => toDependency(id)),
+      ...extractFunctionsConfigProperty(localConfig.functions || {}, 'external_node_modules').map(id =>
+        toDependency(id)
+      ),
+    ]);
+};
+
+const plugin: Plugin = {
+  title,
+  enablers,
+  isEnabled,
+  config,
+  production,
+  resolveConfig,
+};
+
+export default plugin;

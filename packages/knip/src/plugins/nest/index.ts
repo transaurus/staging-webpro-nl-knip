@@ -1,0 +1,29 @@
+import type { IsPluginEnabled, Plugin, ResolveConfig } from '../../types/config.ts';
+import { toDependency } from '../../util/input.ts';
+import { hasDependency } from '../../util/plugin.ts';
+import type { NestConfig } from './types.ts';
+
+// https://docs.nestjs.com
+
+const title = 'Nest';
+
+const enablers = [/^@nestjs\/.*/];
+
+const isEnabled: IsPluginEnabled = ({ dependencies }) => hasDependency(dependencies, enablers);
+
+const config = ['nest-cli.json', '.nestcli.json', '.nest-cli.json', 'nest.json'];
+
+const resolveConfig: ResolveConfig<NestConfig> = async config => {
+  const inputs = config?.collection ? [config.collection] : [];
+  return [...inputs].map(id => toDependency(id));
+};
+
+const plugin: Plugin = {
+  title,
+  enablers,
+  isEnabled,
+  config,
+  resolveConfig,
+};
+
+export default plugin;

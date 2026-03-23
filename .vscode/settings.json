@@ -1,0 +1,45 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "unifiedjs.vscode-remark"
+  },
+  "[mdx]": {
+    "editor.defaultFormatter": "remcohaszing.vscode-mdxlint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "cSpell.enabled": true,
+  "cSpell.words": [
+    "astro",
+    "codebase",
+    "codegen",
+    "codeowners",
+    "commitlint",
+    "devkit",
+    "execa",
+    "jiti",
+    "knip",
+    "lefthook",
+    "preprocess",
+    "preprocessor",
+    "stylelint",
+    "timerify",
+    "tsup",
+    "unimported",
+    "webp"
+  ],
+  "editor.formatOnSave": true
+}

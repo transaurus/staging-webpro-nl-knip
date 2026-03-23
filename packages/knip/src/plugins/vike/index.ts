@@ -1,0 +1,23 @@
+import type { IsPluginEnabled, Plugin } from '../../types/config.ts';
+import { hasDependency } from '../../util/plugin.ts';
+
+// https://vike.dev
+
+const title = 'Vike';
+
+const enablers = ['vike'];
+
+const isEnabled: IsPluginEnabled = ({ dependencies }) => hasDependency(dependencies, enablers);
+
+const patterns = ['{pages,renderer}/**/+*.{js,jsx,ts,tsx,vue,react,solid}'];
+
+const production = [...patterns, ...patterns.map(pattern => `*/${pattern}`)];
+
+const plugin: Plugin = {
+  title,
+  enablers,
+  isEnabled,
+  production,
+};
+
+export default plugin;

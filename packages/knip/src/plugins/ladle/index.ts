@@ -1,0 +1,49 @@
+import type { IsPluginEnabled, Plugin, ResolveConfig } from '../../types/config.ts';
+import { toEntry } from '../../util/input.ts';
+import { toAbsolute } from '../../util/path.ts';
+import { hasDependency, load } from '../../util/plugin.ts';
+import { resolveConfig as resolveVitestConfig } from '../vitest/index.ts';
+import type { LadleConfig } from './types.ts';
+
+// https://ladle.dev/docs/config
+
+const title = 'Ladle';
+
+const enablers = ['@ladle/react'];
+
+const isEnabled: IsPluginEnabled = ({ dependencies }) => hasDependency(dependencies, enablers);
+
+const config = ['.ladle/config.{mjs,js,ts}'];
+
+const stories = ['src/**/*.stories.{js,jsx,ts,tsx,mdx}'];
+const restEntry = ['.ladle/components.{js,jsx,ts,tsx}'];
+const entry = [...restEntry, ...stories];
+
+const project = ['.ladle/**/*.{js,jsx,ts,tsx}'];
+
+const resolveConfig: ResolveConfig<LadleConfig> = async (localConfig, options) => {
+  const localStories = typeof localConfig.stories === 'string' ? [localConfig.stories] : localConfig.stories;
+  const viteConfig = localConfig.viteConfig ? [toAbsolute(localConfig.viteConfig, options.cwd)] : [];
+  const patterns = [...restEntry, ...(localStories ?? stories), ...viteConfig];
+  const entries = patterns.map(id => toEntry(id));
+
+  if (localConfig.viteConfig) {
+    const viteConfigPath = toAbsolute(localConfig.viteConfig, options.cwd);
+    const viteConfig = await load(viteConfigPath);
+    return entries.concat(await resolveVitestConfig(viteConfig, options));
+  }
+
+  return entries;
+};
+
+const plugin: Plugin = {
+  title,
+  enablers,
+  isEnabled,
+  config,
+  entry,
+  project,
+  resolveConfig,
+};
+
+export default plugin;

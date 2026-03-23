@@ -1,0 +1,36 @@
+import { parseArgs } from 'node:util';
+import { Plugins } from './plugins/index.ts';
+import type { Args } from './types/args.ts';
+import type { Entries, PluginMap } from './types/config.ts';
+import type { PluginName } from './types/PluginNames.ts';
+import { timerify } from './util/Performance.ts';
+
+const PMap: PluginMap = Plugins;
+
+const { values } = parseArgs({ strict: false, options: { performance: { type: 'boolean' } } });
+
+const isEnabled = !!values.performance;
+
+const timerifyMethods = ['resolve', 'resolveConfig', 'resolveAST'] as const;
+
+const PluginEntries = Object.entries(PMap) as Entries;
+
+if (isEnabled) {
+  for (const [, plugin] of PluginEntries) {
+    for (const method of timerifyMethods) {
+      // @ts-expect-error function signatures don't match but doesn't matter
+      if (method in plugin) plugin[method] = timerify(plugin[method], `${method} (${plugin.title})`);
+    }
+  }
+}
+
+const pluginArgsMap = new Map(
+  PluginEntries.flatMap(([pluginName, plugin]) => {
+    if (!plugin.args) return [];
+    const item: [PluginName, Args] = [pluginName, plugin.args];
+    if (Array.isArray(plugin.args?.binaries)) return plugin.args.binaries.map(bin => [bin, item]);
+    return [[pluginName, item]];
+  })
+);
+
+export { PMap as Plugins, PluginEntries, pluginArgsMap };
