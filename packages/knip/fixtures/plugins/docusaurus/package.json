@@ -1,24 +1,16 @@
 {
   "name": "@plugins/docusaurus",
+  "type": "module",
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "write-translations": "docusaurus write-translations",
     "build": "docusaurus build"
   },
   "dependencies": {
-    "@docusaurus/core": "*",
-    "@docusaurus/faster": "*",
-    "@docusaurus/plugin-content-pages": "*",
-    "@docusaurus/plugin-sitemap": "*",
-    "@docusaurus/preset-classic": "*",
-    "@docusaurus/theme-mermaid": "*",
-    "@mdx-js/react": "*",
-    "@my-company/docusaurus-plugin": "*",
-    "@my-company/docusaurus-plugin-awesome": "*",
-    "@my-company/docusaurus-plugin-cool": "*",
-    "docusaurus-plugin-awesome": "*"
-  },
-  "devDependencies": {
-    "@docusaurus/types": "*"
+    "@docusaurus/core": "3.7.0",
+    "@docusaurus/preset-classic": "3.7.0",
+    "@mdx-js/react": "^3.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   }
 }

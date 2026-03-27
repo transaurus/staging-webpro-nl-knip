@@ -16,6 +16,7 @@ import { createInputHandler, type ExternalRefsFromInputs } from '../util/create-
 import type { MainOptions } from '../util/create-options.ts';
 import { debugLog, debugLogArray } from '../util/debug.ts';
 import { existsSync } from 'node:fs';
+import { tryRealpath } from '../util/fs.ts';
 import { _glob, _syncGlob, negate, prependDirToPattern as prependDir } from '../util/glob.ts';
 import {
   type Input,
@@ -157,7 +158,8 @@ export async function build({
 
     if (definitionPaths.length > 0) {
       debugLogArray(name, 'Definition paths', definitionPaths);
-      for (const id of definitionPaths) inputs.add(toProductionEntry(id, { containingFilePath: tsConfigFilePath }));
+      for (const id of definitionPaths)
+        inputs.add(toProductionEntry(tryRealpath(id), { containingFilePath: tsConfigFilePath }));
     }
 
     const sharedGlobOptions = { cwd: options.cwd, dir, gitignore: options.gitignore };
@@ -303,7 +305,8 @@ export async function build({
     if (options.isUseTscFiles && isFile) {
       const isIgnoredWorkspace = chief.createIgnoredWorkspaceMatcher(name, dir);
       debugLogArray(name, 'Using tsconfig files as project files', tscSourcePaths);
-      for (const filePath of tscSourcePaths) {
+      for (const tscPath of tscSourcePaths) {
+        const filePath = tryRealpath(tscPath);
         if (!isGitIgnored(filePath) && !isIgnoredWorkspace(filePath)) {
           principal.addProgramPath(filePath);
           principal.addProjectPath(filePath);
@@ -395,14 +398,16 @@ export async function build({
         if (!isIgnored) pp.addEntryPath(filePath, { skipExportsAnalysis: true });
       }
 
+      const wsDependencies = deputy.getDependencies(workspace.name);
       for (const _import of file.imports.imports) {
-        if (_import.filePath) {
-          const packageName = getPackageNameFromModuleSpecifier(_import.specifier);
-          if (packageName && isInternalWorkspace(packageName)) {
-            file.imports.external.add({ ..._import, specifier: packageName });
-            if (!isGitIgnored(_import.filePath)) {
-              pp.addProgramPath(_import.filePath);
-            }
+        if (!_import.filePath) continue;
+        const packageName = getPackageNameFromModuleSpecifier(_import.specifier);
+        if (!packageName) continue;
+        const isWorkspace = isInternalWorkspace(packageName);
+        if (isWorkspace || wsDependencies.has(packageName)) {
+          file.imports.external.add({ ..._import, specifier: packageName });
+          if (isWorkspace && !isGitIgnored(_import.filePath)) {
+            pp.addProgramPath(_import.filePath);
           }
         }
       }

@@ -1,7 +1,7 @@
 {
   "name": "vscode-knip",
   "displayName": "Knip",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "private": true,
   "description": "Find unused files, dependencies, and exports in JavaScript/TypeScript projects",
   "categories": [
@@ -181,6 +181,11 @@
             "type": "string",
             "default": "",
             "description": "Path to Knip configuration file (relative to workspace root)"
+          },
+          "knip.nodeRuntimePath": {
+            "type": "string",
+            "default": "",
+            "description": "Absolute path to the Node.js binary (e.g. /usr/local/bin/node)"
           }
         }
       },

@@ -1,5 +1,4 @@
 /coverage
-/dist
 /tmp
 /node_modules
 !/fixtures/**

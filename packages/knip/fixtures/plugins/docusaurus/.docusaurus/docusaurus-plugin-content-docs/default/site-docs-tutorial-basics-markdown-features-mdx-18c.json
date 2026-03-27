@@ -1,0 +1,15 @@
+{
+  "id": "tutorial-basics/markdown-features",
+  "title": "markdown-features",
+  "description": "",
+  "source": "@site/docs/tutorial-basics/markdown-features.mdx",
+  "sourceDirName": "tutorial-basics",
+  "slug": "/tutorial-basics/markdown-features",
+  "permalink": "/docs/tutorial-basics/markdown-features",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "defaultSidebar"
+}
