@@ -3,35 +3,35 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
-    path: '/blog',
-    component: ComponentCreator('/blog', '1b9'),
+    path: '/zh-Hans/blog',
+    component: ComponentCreator('/zh-Hans/blog', 'ce7'),
     exact: true
   },
   {
-    path: '/blog/2021/08/01/mdx-blog-post',
-    component: ComponentCreator('/blog/2021/08/01/mdx-blog-post', 'f2b'),
+    path: '/zh-Hans/blog/2021/08/01/mdx-blog-post',
+    component: ComponentCreator('/zh-Hans/blog/2021/08/01/mdx-blog-post', '243'),
     exact: true
   },
   {
-    path: '/blog/archive',
-    component: ComponentCreator('/blog/archive', '182'),
+    path: '/zh-Hans/blog/archive',
+    component: ComponentCreator('/zh-Hans/blog/archive', 'c6a'),
     exact: true
   },
   {
-    path: '/docs',
-    component: ComponentCreator('/docs', '2e8'),
+    path: '/zh-Hans/docs',
+    component: ComponentCreator('/zh-Hans/docs', '45b'),
     routes: [
       {
-        path: '/docs',
-        component: ComponentCreator('/docs', 'd25'),
+        path: '/zh-Hans/docs',
+        component: ComponentCreator('/zh-Hans/docs', 'bf5'),
         routes: [
           {
-            path: '/docs',
-            component: ComponentCreator('/docs', '57e'),
+            path: '/zh-Hans/docs',
+            component: ComponentCreator('/zh-Hans/docs', '422'),
             routes: [
               {
-                path: '/docs/tutorial-basics/markdown-features',
-                component: ComponentCreator('/docs/tutorial-basics/markdown-features', '209'),
+                path: '/zh-Hans/docs/tutorial-basics/markdown-features',
+                component: ComponentCreator('/zh-Hans/docs/tutorial-basics/markdown-features', '026'),
                 exact: true,
                 sidebar: "defaultSidebar"
               }
@@ -42,8 +42,8 @@ export default [
     ]
   },
   {
-    path: '/',
-    component: ComponentCreator('/', '2e1'),
+    path: '/zh-Hans/',
+    component: ComponentCreator('/zh-Hans/', 'fba'),
     exact: true
   },
   {

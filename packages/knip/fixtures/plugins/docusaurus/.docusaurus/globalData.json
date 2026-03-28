@@ -1,18 +1,18 @@
 {
   "docusaurus-plugin-content-docs": {
     "default": {
-      "path": "/docs",
+      "path": "/zh-Hans/docs",
       "versions": [
         {
           "name": "current",
           "label": "Next",
           "isLast": true,
-          "path": "/docs",
+          "path": "/zh-Hans/docs",
           "mainDocId": "tutorial-basics/markdown-features",
           "docs": [
             {
               "id": "tutorial-basics/markdown-features",
-              "path": "/docs/tutorial-basics/markdown-features",
+              "path": "/zh-Hans/docs/tutorial-basics/markdown-features",
               "sidebar": "defaultSidebar"
             }
           ],
@@ -20,7 +20,7 @@
           "sidebars": {
             "defaultSidebar": {
               "link": {
-                "path": "/docs/tutorial-basics/markdown-features",
+                "path": "/zh-Hans/docs/tutorial-basics/markdown-features",
                 "label": "tutorial-basics/markdown-features"
               }
             }

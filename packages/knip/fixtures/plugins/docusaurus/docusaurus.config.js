@@ -1,4 +1,8 @@
 export default {
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "zh-Hans"],
+  },
   title: 'Docusaurus',
   url: 'https://docusaurus.io',
   baseUrl: '/',

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_plugins_docusaurus=self.webpackChunk_plugins_docusaurus||[]).push([[472],{5513(s){s.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"mdx-blog-post","permalink":"/zh-Hans/blog/2021/08/01/mdx-blog-post","unlisted":false,"date":"2021-08-01T00:00:00.000Z"}]}')}}]);

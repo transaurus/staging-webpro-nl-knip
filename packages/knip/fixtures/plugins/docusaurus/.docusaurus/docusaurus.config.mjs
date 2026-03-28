@@ -4,9 +4,18 @@
  * Modify the docusaurus.config.js file at your site's root instead.
  */
 export default {
+  "i18n": {
+    "defaultLocale": "en",
+    "locales": [
+      "en",
+      "zh-Hans"
+    ],
+    "path": "i18n",
+    "localeConfigs": {}
+  },
   "title": "Docusaurus",
   "url": "https://docusaurus.io",
-  "baseUrl": "/",
+  "baseUrl": "/zh-Hans/",
   "presets": [
     [
       "@docusaurus/preset-classic",
@@ -31,14 +40,6 @@ export default {
     }
   },
   "baseUrlIssueBanner": true,
-  "i18n": {
-    "defaultLocale": "en",
-    "path": "i18n",
-    "locales": [
-      "en"
-    ],
-    "localeConfigs": {}
-  },
   "onBrokenLinks": "throw",
   "onBrokenAnchors": "warn",
   "onBrokenMarkdownLinks": "warn",

@@ -1,5 +1,5 @@
 {
-  "/blog-1b9": {
+  "/zh-Hans/blog-ce7": {
     "__comp": "a6aa9e1f",
     "__context": {
       "plugin": "36994c47"
@@ -10,9 +10,9 @@
         "content": "f4f34a3a"
       }
     ],
-    "__props": "c15d9823"
+    "__props": "08765e37"
   },
-  "/blog/2021/08/01/mdx-blog-post-f2b": {
+  "/zh-Hans/blog/2021/08/01/mdx-blog-post-243": {
     "__comp": "ccc49370",
     "__context": {
       "data": {
@@ -23,31 +23,31 @@
     "sidebar": "814f3328",
     "content": "59362658"
   },
-  "/blog/archive-182": {
+  "/zh-Hans/blog/archive-c6a": {
     "__comp": "9e4087bc",
     "__context": {
       "plugin": "36994c47"
     },
-    "__props": "f81c1134"
+    "__props": "9e473607"
   },
-  "/docs-2e8": {
+  "/zh-Hans/docs-45b": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/docs-d25": {
+  "/zh-Hans/docs-bf5": {
     "__comp": "a7bd4aaa",
-    "__props": "0058b4c6"
+    "__props": "eceef310"
   },
-  "/docs-57e": {
+  "/zh-Hans/docs-422": {
     "__comp": "a94703ab"
   },
-  "/docs/tutorial-basics/markdown-features-209": {
+  "/zh-Hans/docs/tutorial-basics/markdown-features-026": {
     "__comp": "17896441",
     "content": "18c41134"
   },
-  "/-2e1": {
+  "/zh-Hans/-fba": {
     "__comp": "c4f5d8e4",
     "__context": {
       "plugin": "a7456010"
